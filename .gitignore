@@ -6,3 +6,4 @@ node_modules/
 /blob-report/
 .env
 .idea
+.DS_Store
