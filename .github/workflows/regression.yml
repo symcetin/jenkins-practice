@@ -1,0 +1,39 @@
+name: Regression Tests
+
+on: # when the workflow should run
+  push: #
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: "0 17 * * *"
+  workflow_dispatch:
+
+jobs:
+  playwright-tests:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    env:
+      PRACTICE_USERNAME: ${{ secrets.PRACTICE_USERNAME }}
+      PRACTICE_PASSWORD: ${{ secrets.PRACTICE_PASSWORD }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Playwright tests
+        run: npx playwright test
