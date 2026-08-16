@@ -3,10 +3,10 @@ name: Regression Tests
 on: # when the workflow should run
   push: #
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
   schedule:
     - cron: "0 17 * * *"
   workflow_dispatch:
